@@ -83,8 +83,13 @@ app.use((req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-    console.log(`📊 GA4 Content Grouping Tool is ready!`);
-    console.log(`🌍 Environment: ${isProduction ? 'Production' : 'Development'}`);
-});
+if (!isProduction) {
+    app.listen(PORT, () => {
+        console.log(`🚀 Server running on http://localhost:${PORT}`);
+        console.log(`📊 GA4 Content Grouping Tool is ready!`);
+        console.log(`🌍 Environment: ${isProduction ? 'Production' : 'Development'}`);
+    });
+}
+
+// Export for Vercel
+module.exports = app;
