@@ -1,0 +1,11 @@
+node_modules/
+.env
+*.log
+.DS_Store
+config/ga-config.json
+config/url-mapping.json
+*.json
+!package.json
+!package-lock.json
+exports/
+temp/
