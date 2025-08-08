@@ -165,7 +165,7 @@ async function checkAuthStatus() {
 
 function handleGoogleLogin() {
     console.log('Redirecting to Google OAuth...');
-    window.location.href = '/api/auth/google';
+    window.location.href = '/api/auth/login';
 }
 
 
