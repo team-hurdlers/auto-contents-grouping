@@ -2,11 +2,12 @@ const express = require('express');
 const { OAuth2Client } = require('google-auth-library');
 const router = express.Router();
 
-// OAuth2 설정
+// OAuth2 설정 - Vercel용 고정 URI
 const getRedirectUri = (req) => {
-    const host = req.get('host');
-    const protocol = req.protocol;
-    return `${protocol}://${host}/api/auth/callback`;
+    if (process.env.NODE_ENV === 'production') {
+        return 'https://auto-contents-grouping-lkfg.vercel.app/api/auth/callback';
+    }
+    return 'http://localhost:3000/api/auth/callback';
 };
 
 const oauth2Client = new OAuth2Client(
