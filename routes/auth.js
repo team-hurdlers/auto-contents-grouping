@@ -14,7 +14,30 @@ const oauth2Client = new OAuth2Client(
     process.env.GOOGLE_CLIENT_SECRET
 );
 
-// Google OAuth URL 생성
+// Google OAuth URL 생성 (login 경로로도 접근 가능)
+router.get('/login', (req, res) => {
+    const scopes = [
+        'https://www.googleapis.com/auth/analytics.readonly',
+        'https://www.googleapis.com/auth/analytics.edit',  // Admin API 권한
+        'https://www.googleapis.com/auth/analytics.manage.users',  // 사용자 관리
+        'https://www.googleapis.com/auth/analytics.manage.users.readonly',  // 사용자 읽기
+        'https://www.googleapis.com/auth/userinfo.email',
+        'https://www.googleapis.com/auth/userinfo.profile'
+    ];
+    
+    // 동적 redirect URI 설정
+    oauth2Client.redirectUri = getRedirectUri(req);
+    
+    const authUrl = oauth2Client.generateAuthUrl({
+        access_type: 'offline',
+        scope: scopes,
+    });
+    
+    console.log('Generated OAuth URL:', authUrl);
+    res.redirect(authUrl);
+});
+
+// Google OAuth URL 생성 (기존 경로 유지)
 router.get('/google', (req, res) => {
     const scopes = [
         'https://www.googleapis.com/auth/analytics.readonly',
