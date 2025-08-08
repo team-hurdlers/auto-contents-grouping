@@ -3,7 +3,7 @@ const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    `${process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'http://localhost:3000'}/api/auth/callback`
+    'https://auto-contents-grouping-lkfg.vercel.app/api/auth/callback'
 );
 
 export default async function handler(req, res) {
